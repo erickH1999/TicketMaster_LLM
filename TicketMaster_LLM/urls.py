@@ -17,6 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from TicketMaster import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", views.results, name="results"),
+    path("", views.get_events, name="get_events"),
+    path('view_favorites/', views.view_fav, name='view_favorites'),
+    path('update/<int:event_id>', views.update_fav, name='delete_fav'),
+    path('delete_fav/', views.delete_fav, name='delete_fav'),
+    path('createfav/', views.create_fav, name='create_fav'),
 ]
