@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 # HttpResponse
 from django.forms import Form
 from django.contrib import messages
-
 from TicketMaster.models import Events
 
 

@@ -3,7 +3,7 @@
     <div id="containerResults" class="container-fluid p-3">
         {% csrf_token %}
         <div class="row justify-content-center text-center">
-            <div class="col-12 text-white">
+            <div class="col-12 text-black">
                 <h1 class="display-1 my-3">Ticket Master</h1>
             </div>
         </div>
@@ -61,5 +61,34 @@
         {% endif %}
     </div>
 
+
+{% endblock %}
+
+{% block myJavaScript %}
+
+    <script>
+        function addFavorite(event_name, event_venue, event_address, event_city,
+                             event_state, event_date, event_time, event_img, event_ticket_link) {
+            $.ajax({
+                url: {% url 'create_fav' %},
+                type: 'POST',
+                data: {
+                    'event_name': event_name,
+                    'event_venue': event_venue,
+                    'event_address': event_address,
+                    'event_city': event_city,
+                    'event_state': event_state,
+                    'event_date': event_date,
+                    'event_time': event_time,
+                    'event_img': event_img,
+                    'event_ticket_link': event_ticket_link,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (response) {
+                    console.log(response)
+                }
+            });
+        }
+    </script>
 
 {% endblock %}
