@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary navbar sticky-top navbar" style="background-color: rgb(128,128,128);">
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar sticky-top navbar"
+     style="background-color: rgb(128,128,128);">
     <div class="container-fluid">
         <a class="navbar-brand">Event Finder</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navbarNav"
@@ -25,7 +26,7 @@
                     <a class="nav-link active" aria-current="page" href="{% url 'view_favorites' %}">Favorites</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="">Recommendations</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'chat_view' %}">Recommendations</a>
                 </li>
             </ul>
         </div>

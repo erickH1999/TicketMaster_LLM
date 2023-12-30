@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from django.forms import Form
 from django.contrib import messages
 from TicketMaster.models import Events
+from django.shortcuts import render
+import openai
 
 
 # from .models import Events
@@ -145,3 +147,22 @@ def delete_fav(request):
                 }
             )
     return JsonResponse({'error': 'something went wrong.'})
+
+
+# API key for ChatGPT: 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
+
+# method to handle chatGPT implementation:
+
+def chat_view(request):
+    if request.method == 'POST':
+        user_input = request.POST.get('user_input')
+        openai.api_key = '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'
+        response = openai.Completion.create(
+            engine="text-davinci-002",
+            prompt=user_input,
+            max_tokens=150,  # adjust as needed
+        )
+        chat_response = response['choices'][0]['text']
+        return render(request, 'chat.html', {'user_input': user_input, 'chat_response': chat_response})
+    else:
+        return render(request, 'chat.html')

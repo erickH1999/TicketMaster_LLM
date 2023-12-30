@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from TicketMaster import views
+from TicketMaster.views import chat_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('update/<int:event_id>', views.update_fav, name='delete_fav'),
     path('delete_fav/', views.delete_fav, name='delete_fav'),
     path('createfav/', views.create_fav, name='create_fav'),
+    path('chat/', chat_view, name='chat_view'),
 ]
