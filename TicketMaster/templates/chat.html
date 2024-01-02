@@ -28,6 +28,26 @@
                             <p>Chatbot: {{ chat_response }}</p>
                         </div>
 
+                        {% if cards %}
+                            {% for card in cards %}
+
+                                <div class="col-6 col-md-4 col-lg-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ card.title }}</h5>
+                                            <h5 class="lead">{{ card.venue }}</h5>
+                                            <p>{{ card.date }} at {{ card.time }}</p>
+                                            <a href="{{ card.ticket_link }}" class="btn btn-secondary">Find Tickets</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+
                     </div>
                 </div>
             </div>

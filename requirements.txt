@@ -10,3 +10,4 @@ soupsieve==2.5
 sqlparse==0.4.4
 
 requests~=2.31.0
+openai~=0.28.0

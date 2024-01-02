@@ -162,7 +162,33 @@ def chat_view(request):
             prompt=user_input,
             max_tokens=150,  # adjust as needed
         )
-        chat_response = response['choices'][0]['text']
-        return render(request, 'chat.html', {'user_input': user_input, 'chat_response': chat_response})
+        keyword = user_input
+        city = 'Hartford'
+        event_api_results = get_events(city, keyword)
+
+        if '_embedded' not in event_api_results or 'events' not in event_api_results['_embedded']:
+            messages.info(request, 'No results for the search!!')
+            return redirect('chat_view')
+
+        events = event_api_results['_embedded']['events']
+
+        extracted_info = process_events(events)
+
+        cards = []
+
+        for info in extracted_info:
+            card = {
+                'title': info['title'],
+                'venue': info['venue'],
+                'city': info['city'],
+                'date': info['date'],
+                'time': info['time'],
+                'image': info['image'],
+                'ticket_link': info['ticket_link'],
+            }
+            cards.append(card)
+            # console.log(card)
+
+        return render(request, 'chat.html', {'user_input': user_input, 'cards': cards})
     else:
         return render(request, 'chat.html')
