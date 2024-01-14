@@ -27,6 +27,7 @@ def convert_to_12_hour_format(event_time):
 
 
 def process_events(events):
+    print(events)
     process_data = []
 
     for event in events:
@@ -158,10 +159,13 @@ def chat_view(request):
         user_input = request.POST.get('user_input')
         openai.api_key = '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'
         response = openai.Completion.create(
-            engine="text-davinci-002",
+            engine="gpt-3.5-turbo-instruct",
             prompt=user_input,
             max_tokens=150,  # adjust as needed
         )
+        print(response)  # Add this line to print the response data
+        messages.info(request, f'Response: {response}')
+
         keyword = user_input
         city = 'Hartford'
         event_api_results = get_events(city, keyword)
@@ -173,22 +177,21 @@ def chat_view(request):
         events = event_api_results['_embedded']['events']
 
         extracted_info = process_events(events)
-
         cards = []
 
-        for info in extracted_info:
+        for info in extracted_info['events']:
             card = {
-                'title': info['title'],
-                'venue': info['venue'],
-                'city': info['city'],
-                'date': info['date'],
-                'time': info['time'],
-                'image': info['image'],
-                'ticket_link': info['ticket_link'],
+                'title': info.get('name', 'N/A'),
+                'venue': info.get('venue', 'N/A'),
+                'venue_address': info.get('venue_address', 'N/A'),
+                'city': info.get('city', 'N/A'),
+                'date': info.get('event_date', 'N/A'),
+                'time': info.get('event_time', 'N/A'),
+                'image': info.get('picture', 'N/A'),
+                'ticket_link': info.get('ticket_link', 'N/A'),
             }
             cards.append(card)
-            # console.log(card)
 
-        return render(request, 'chat.html', {'user_input': user_input, 'cards': cards})
+        return render(request, 'chat.html', {'user_input': user_input, 'cards': cards, 'response_text': response.choices[0].text})
     else:
         return render(request, 'chat.html')
