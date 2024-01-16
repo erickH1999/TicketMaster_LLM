@@ -8,6 +8,7 @@ from django.contrib import messages
 from TicketMaster.models import Events
 from django.shortcuts import render
 import openai
+import sys
 
 
 # from .models import Events
