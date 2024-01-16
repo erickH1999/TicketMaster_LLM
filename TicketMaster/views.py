@@ -167,8 +167,17 @@ def chat_view(request):
         print(response)  # Add this line to print the response data
         messages.info(request, f'Response: {response}')
 
+        location_prefixes = ['in', 'near', 'around']
+        location = None
+
+        for prefix in location_prefixes:
+            if prefix in user_input.lower():
+                location = user_input.split(prefix)[-1].strip()
+                break
+
+        # Use the location for event search, default to 'Hartford' if not specified
+        city = location if location else 'Hartford'
         keyword = user_input
-        city = 'Hartford'
         event_api_results = get_events(city, keyword)
 
         if '_embedded' not in event_api_results or 'events' not in event_api_results['_embedded']:
@@ -193,6 +202,7 @@ def chat_view(request):
             }
             cards.append(card)
 
-        return render(request, 'chat.html', {'user_input': user_input, 'cards': cards, 'response_text': response.choices[0].text})
+        return render(request, 'chat.html',
+                      {'user_input': user_input, 'cards': cards, 'response_text': response.choices[0].text})
     else:
         return render(request, 'chat.html')
