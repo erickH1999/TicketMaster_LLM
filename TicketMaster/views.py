@@ -9,6 +9,8 @@ from TicketMaster.models import Events
 from django.shortcuts import render
 import openai
 import sys
+import os
+from decouple import config
 
 
 # from .models import Events
@@ -151,14 +153,12 @@ def delete_fav(request):
     return JsonResponse({'error': 'something went wrong.'})
 
 
-# API key for ChatGPT: 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
-
 # method to handle chatGPT implementation:
 
 def chat_view(request):
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
-        openai.api_key = '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'
+        openai.api_key = config('OPENAI_API_KEY')
         response = openai.Completion.create(
             engine="gpt-3.5-turbo-instruct",
             prompt=user_input,
