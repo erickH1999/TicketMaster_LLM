@@ -25,9 +25,9 @@
                         </form>
                         <div>
                             <p>User: {{ user_input }}</p>
-                            <p>Chatbot: {{ chat_response }}</p>
-                        </div>
+                            <p>Chatbot: {{ response_text }}</p>
 
+                        </div>
                         {% if cards %}
                             {% for card in cards %}
 
@@ -55,5 +55,4 @@
 
         </div>
     </div>
-
 {% endblock %}
