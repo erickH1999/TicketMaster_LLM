@@ -62,7 +62,7 @@ def get_events(city, keyword):
         url = 'https://app.ticketmaster.com/discovery/v2/events.json'
 
         # ticketmaster API key
-        api_key = 'SAkSR3t1pdGu6BCl6BCsIWJYNXTJvU14'
+        api_key = 'apikey'        
 
         # parameters for the API request
         params = {
